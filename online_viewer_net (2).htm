@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی جدول ضرب - آموزش ریاضی</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            color: #d64d7e;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #e84a85;
+            margin: 20px 0;
+            font-size: 22px;
+        }
+        
+        .logo {
+            font-size: 50px;
+            color: #ff6b8b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ffb8c6;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            transition: border-color 0.3s;
+            background-color: #fff8f9;
+        }
+        
+        .input-field:focus {
+            border-color: #ff6b8b;
+            outline: none;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #ff6b8b, #ff8ea1);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            margin: 10px 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-easy {
+            background: linear-gradient(to right, #42e695, #3bb2b8);
+        }
+        
+        .btn-medium {
+            background: linear-gradient(to right, #ffbf5e, #ff925c);
+        }
+        
+        .btn-hard {
+            background: linear-gradient(to right, #ff6c6c, #ff3f3f);
+        }
+        
+        .btn-teacher {
+            background: linear-gradient(to right, #7b68ee, #5b4ce2);
+        }
+        
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .option {
+            background: linear-gradient(to bottom, #ffefef, #ffd6d6);
+            border: 2px solid #ffb8c6;
+            border-radius: 15px;
+            padding: 15px;
+            width: 45%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+        
+        .timer {
+            height: 10px;
+            background: linear-gradient(to right, #42e695, #3bb2b8);
+            border-radius: 5px;
+            margin: 15px 0;
+            transition: width 1s linear;
+        }
+        
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6b8b;
+            margin: 15px 0;
+            background-color: #fff8f9;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #ffb8c6;
+        }
+        
+        .message {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .success {
+            background-color: #e6fffa;
+            color: #00cc99;
+            border: 2px solid #80ffdf;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #ff3d3d;
+            border: 2px solid #ffcdd2;
+        }
+        
+        .warning {
+            background-color: #fff8e1;
+            color: #ffb300;
+            border: 2px solid #ffecb3;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .teacher-panel {
+            text-align: right;
+            width: 100%;
+        }
+        
+        .teacher-panel input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ffb8c6;
+            border-radius: 5px;
+            background-color: #fff8f9;
+        }
+        
+        .question-text {
+            font-size: 28px;
+            margin: 20px 0;
+            color: #ff6b8b;
+            background-color: #fff8f9;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #ffb8c6;
+        }
+        
+        .level-info {
+            font-size: 14px;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+        
+        .persian-number {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .correct-answer {
+            background: linear-gradient(to bottom, #c8e6c9, #a5d6a7) !important;
+            border-color: #66bb6a !important;
+        }
+        
+        .end-game-btn {
+            background: linear-gradient(to right, #9e9e9e, #757575) !important;
+            margin-top: 10px;
+        }
+        
+        .student-stats {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            text-align: right;
+        }
+        
+        .student-stats h4 {
+            margin-bottom: 10px;
+            color: #7b1fa2;
+        }
+        
+        .student-stats div {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .block-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .block-section h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        
+        .teacher-content {
+            max-height: 400px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ffb8c6;
+            border-radius: 10px;
+            background-color: #fff8f9;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .option {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- صفحه اصلی -->
+        <div id="main-page">
+            <div class="logo">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h1>بازی آموزشی جدول ضرب</h1>
+            <p>برای شروع بازی، نام خود را وارد کنید</p>
+            
+            <input type="text" id="student-name" class="input-field" placeholder="نام و نام خانوادگی">
+            <button id="start-btn" class="btn">شروع بازی</button>
+            
+            <div style="margin-top: 30px;">
+                <button id="leaderboard-btn" class="btn">تابلوی پیشتازان</button>
+                <button id="teacher-btn" class="btn btn-teacher">پنل معلم</button>
+            </div>
+            
+            <div class="copyright">© مهدی زینلی</div>
+        </div>
+        
+        <!-- صفحه انتخاب سطح -->
+        <div id="level-page" class="hidden">
+            <h2>سطح مورد نظر را انتخاب کنید</h2>
+            
+            <button class="btn btn-easy" data-level="easy">
+                <i class="far fa-star"></i> سطح آسان
+                <div class="level-info">امتیاز مثبت: ۱ | بدون امتیاز منفی | ۵ سوال</div>
+            </button>
+            
+            <button class="btn btn-medium" data-level="medium">
+                <i class="fas fa-star-half-alt"></i> سطح متوسط
+                <div class="level-info">امتیاز مثبت: ۳ | امتیاز منفی: ۱ | ۷ سوال</div>
+            </button>
+            
+            <button class="btn btn-hard" data-level="hard">
+                <i class="fas fa-star"></i> سطح دشوار
+                <div class="level-info">امتیاز مثبت: ۵ | امتیاز منفی: ۳ | بی‌نهایت سوال تا پاسخ اشتباه</div>
+            </button>
+            
+            <button id="back-to-main" class="btn" style="margin-top: 20px;">بازگشت به صفحه اصلی</button>
+            
+            <div class="copyright">© مهدی زینلی</div>
+        </div>
+        
+        <!-- صفحه بازی -->
+        <div id="game-page" class="hidden">
+            <h2 id="level-title">سطح بازی</h2>
+            
+            <div class="question-text" id="question">سوال اینجا نمایش داده می‌شود</div>
+            
+            <div class="score">امتیاز: <span id="score-value" class="persian-number">0</span></div>
+            
+            <div id="timer" class="timer hidden"></div>
+            
+            <div class="options-container" id="options-container">
+                <!-- گزینه‌ها اینجا تولید می‌شوند -->
+            </div>
+            
+            <div id="message" class="message hidden"></div>
+            
+            <button id="next-btn" class="btn hidden">سوال بعدی</button>
+            <button id="end-game-btn" class="btn end-game-btn">پایان بازی</button>
+            
+            <div class="copyright">© مهدی زینلی</div>
+        </div>
+        
+        <!-- صفحه تابلوی پیشتازان -->
+        <div id="leaderboard-page" class="hidden">
+            <h2>تابلوی پیشتازان</h2>
+            
+            <ul class="leaderboard" id="leaderboard-list">
+                <li>در حال بارگذاری...</li>
+            </ul>
+            
+            <button id="back-from-leaderboard" class="btn" style="margin-top: 20px;">بازگشت به صفحه اصلی</button>
+            
+            <div class="copyright">© مهدی زینلی</div>
+        </div>
+        
+        <!-- صفحه پنل معلم (نسخه پیشرفته) -->
+        <div id="teacher-page" class="hidden">
+            <h2>پنل معلم - مدیریت پیشرفته</h2>
+            
+            <div class="teacher-panel">
+                <input type="password" id="teacher-password" class="input-field" placeholder="رمز عبور">
+                <button id="teacher-login" class="btn">ورود به پنل</button>
+                
+                <div id="teacher-content" class="hidden">
+                    <h3>لیست دانش‌آموزان و آمار آنها</h3>
+                    
+                    <div class="teacher-content" id="students-list">
+                        <!-- لیست دانش‌آموزان اینجا نمایش داده می‌شود -->
+                    </div>
+                    
+                    <div class="block-section">
+                        <h4>مدیریت مسدودسازی</h4>
+                        <input type="text" id="block-ip" class="input-field" placeholder="آدرس IP برای مسدودسازی">
+                        <button id="block-ip-btn" class="btn" style="background: linear-gradient(to right, #ff6c6c, #ff3f3f);">مسدود کردن IP</button>
+                        
+                        <div style="margin-top: 15px;">
+                            <h4>IP های مسدود شده</h4>
+                            <ul id="blocked-ips-list">
+                                <!-- لیست IP های مسدود شده -->
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <button id="reset-scores" class="btn" style="background: linear-gradient(to right, #ff6c6c, #ff3f3f);">حذف همه امتیازها</button>
+                        <button id="export-data" class="btn" style="background: linear-gradient(to right, #42e695, #3bb2b8); margin-top: 10px;">خروجی داده‌ها</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="back-from-teacher" class="btn" style="margin-top: 20px;">بازگشت به صفحه اصلی</button>
+            
+            <div class="copyright">© مهدی زینلی</div>
+        </div>
+    </div>
+
+    <script>
+        // متغیرهای global
+        let currentLevel = '';
+        let score = 0;
+        let currentQuestion = 1;
+        let totalQuestions = 0;
+        let timerInterval;
+        let timeLeft = 7;
+        let correctAnswer = 0;
+        
+        // عناصر DOM
+        const mainPage = document.getElementById('main-page');
+        const levelPage = document.getElementById('level-page');
+        const gamePage = document.getElementById('game-page');
+        const leaderboardPage = document.getElementById('leaderboard-page');
+        const teacherPage = document.getElementById('teacher-page');
+        
+        const studentNameInput = document.getElementById('student-name');
+        const startBtn = document.getElementById('start-btn');
+        const leaderboardBtn = document.getElementById('leaderboard-btn');
+        const teacherBtn = document.getElementById('teacher-btn');
+        
+        const levelTitle = document.getElementById('level-title');
+        const questionElement = document.getElementById('question');
+        const scoreValueElement = document.getElementById('score-value');
+        const timerElement = document.getElementById('timer');
+        const optionsContainer = document.getElementById('options-container');
+        const messageElement = document.getElementById('message');
+        const nextBtn = document.getElementById('next-btn');
+        const endGameBtn = document.getElementById('end-game-btn');
+        
+        // صداها
+        const correctSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3');
+        const wrongSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3');
+        const timeoutSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-tone-996.mp3');
+        const winSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3');
+        
+        // مدیریت رویدادها
+        startBtn.addEventListener('click', startGame);
+        leaderboardBtn.addEventListener('click', showLeaderboard);
+        teacherBtn.addEventListener('click', showTeacherPanel);
+        
+        document.querySelectorAll('[data-level]').forEach(btn => {
+            btn.addEventListener('click', () => selectLevel(btn.dataset.level));
+        });
+        
+        document.getElementById('back-to-main').addEventListener('click', showMainPage);
+        document.getElementById('back-from-leaderboard').addEventListener('click', showMainPage);
+        document.getElementById('back-from-teacher').addEventListener('click', showMainPage);
+        
+        document.getElementById('teacher-login').addEventListener('click', loginTeacher);
+        document.getElementById('reset-scores').addEventListener('click', resetScores);
+        document.getElementById('block-ip-btn').addEventListener('click', blockIP);
+        document.getElementById('export-data').addEventListener('click', exportData);
+        
+        nextBtn.addEventListener('click', nextQuestion);
+        endGameBtn.addEventListener('click', endGameManually);
+        
+        // توابع مدیریت صفحات
+        function showMainPage() {
+            mainPage.classList.remove('hidden');
+            levelPage.classList.add('hidden');
+            gamePage.classList.add('hidden');
+            leaderboardPage.classList.add('hidden');
+            teacherPage.classList.add('hidden');
+        }
+        
+        function startGame() {
+            const name = studentNameInput.value.trim();
+            
+            if (!isValidPersianName(name)) {
+                alert('لطفاً یک نام فارسی معتبر وارد کنید (فقط حروف فارسی)');
+                return;
+            }
+            
+            if (isForbiddenName(name)) {
+                alert('این نام مجاز نمی‌باشد. لطفاً نام دیگری انتخاب کنید.');
+                return;
+            }
+            
+            // ذخیره نام دانش‌آموز
+            localStorage.setItem('studentName', name);
+            
+            mainPage.classList.add('hidden');
+            levelPage.classList.remove('hidden');
+        }
+        
+        function selectLevel(level) {
+            currentLevel = level;
+            score = 0;
+            currentQuestion = 1;
+            
+            // تنظیم تعداد سوالات بر اساس سطح
+            if (currentLevel === 'easy') {
+                totalQuestions = 5;
+                levelTitle.textContent = "سطح آسان";
+            } else if (currentLevel === 'medium') {
+                totalQuestions = 7;
+                levelTitle.textContent = "سطح متوسط";
+            } else {
+                totalQuestions = Infinity; // بی‌نهایت سوال تا پاسخ اشتباه
+                levelTitle.textContent = "سطح دشوار";
+            }
+            
+            levelPage.classList.add('hidden');
+            gamePage.classList.remove('hidden');
+            
+            // نمایش اولین سوال
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            // پاک کردن گزینه‌های قبلی
+            optionsContainer.innerHTML = '';
+            messageElement.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+            
+            // تولید سوال تصادفی
+            let num1, num2;
+            
+            if (currentLevel === 'hard') {
+                // برای سطح دشوار، اعداد ۱، ۲، ۳ و ۱۰ حذف می‌شوند
+                const hardNumbers = [4, 5, 6, 7, 8, 9];
+                num1 = hardNumbers[Math.floor(Math.random() * hardNumbers.length)];
+                num2 = hardNumbers[Math.floor(Math.random() * hardNumbers.length)];
+            } else {
+                num1 = Math.floor(Math.random() * 10) + 1;
+                num2 = Math.floor(Math.random() * 10) + 1;
+            }
+            
+            correctAnswer = num1 * num2;
+            
+            // نمایش سوال با اعداد فارسی (عبارت ضرب برعکس)
+            questionElement.innerHTML = `؟ = ${toPersianNumber(num1)} × ${toPersianNumber(num2)}`;
+            scoreValueElement.textContent = toPersianNumber(score);
+            
+            // تولید گزینه‌ها
+            let options = [correctAnswer];
+            
+            // تولید گزینه‌های نادرست
+            while (options.length < (currentLevel === 'easy' ? 3 : 4)) {
+                let wrongAnswer;
+                
+                if (currentLevel === 'easy') {
+                    wrongAnswer = correctAnswer + Math.floor(Math.random() * 10) - 5;
+                } else if (currentLevel === 'medium') {
+                    wrongAnswer = correctAnswer + Math.floor(Math.random() * 20) - 10;
+                } else {
+                    wrongAnswer = correctAnswer + Math.floor(Math.random() * 30) - 15;
+                }
+                
+                // اطمینان از منفی نبودن گزینه و تکراری نبودن
+                if (wrongAnswer > 0 && !options.includes(wrongAnswer)) {
+                    options.push(wrongAnswer);
+                }
+            }
+            
+            // مرتب کردن تصادفی گزینه‌ها
+            options = shuffleArray(options);
+            
+            // ایجاد گزینه‌ها در صفحه
+            options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                optionElement.innerHTML = `<span class="persian-number">${toPersianNumber(option)}</span>`;
+                optionElement.addEventListener('click', () => checkAnswer(option, correctAnswer));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // شروع تایمر برای سطح دشوار
+            if (currentLevel === 'hard') {
+                timeLeft = 7;
+                timerElement.classList.remove('hidden');
+                timerElement.style.width = '100%';
+                timerElement.style.background = 'linear-gradient(to right, #42e695, #3bb2b8)';
+                
+                clearInterval(timerInterval);
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timerElement.style.width = (timeLeft / 7 * 100) + '%';
+                    
+                    if (timeLeft <= 2) {
+                        timerElement.style.background = 'linear-gradient(to right, #ff6c6c, #ff3f3f)';
+                    } else if (timeLeft <= 4) {
+                        timerElement.style.background = 'linear-gradient(to right, #ffbf5e, #ff925c)';
+                    }
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timeoutSound.play();
+                        showMessage('زمان شما به پایان رسید!', 'error');
+                        updateScore('timeout');
+                        
+                        // نمایش پاسخ صحیح
+                        showCorrectAnswer();
+                        
+                        // غیرفعال کردن گزینه‌ها
+                        document.querySelectorAll('.option').forEach(opt => {
+                            opt.style.pointerEvents = 'none';
+                        });
+                        
+                        nextBtn.classList.remove('hidden');
+                    }
+                }, 1000);
+            } else {
+                timerElement.classList.add('hidden');
+            }
+        }
+        
+        function checkAnswer(selectedAnswer, correctAns) {
+            // توقف تایمر در صورت فعال بودن
+            if (currentLevel === 'hard') {
+                clearInterval(timerInterval);
+            }
+            
+            // غیرفعال کردن گزینه‌ها
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (selectedAnswer === correctAns) {
+                correctSound.play();
+                showMessage('آفرین! پاسخ شما صحیح است.', 'success');
+                updateScore('correct');
+                
+                // در سطح دشوار، نمایش گزینه بعدی بلافاصله پس از پاسخ صحیح
+                if (currentLevel === 'hard') {
+                    setTimeout(() => {
+                        currentQuestion++;
+                        showQuestion();
+                    }, 1500);
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+            } else {
+                wrongSound.play();
+                showMessage(`پاسخ شما نادرست است. پاسخ صحیح: ${toPersianNumber(correctAnswer)}`, 'error');
+                updateScore('incorrect');
+                
+                // نمایش پاسخ صحیح
+                showCorrectAnswer();
+                
+                // در سطح آسان، گزینه اشتباه غیرفعال می‌شود
+                if (currentLevel === 'easy') {
+                    document.querySelectorAll('.option').forEach(opt => {
+                        if (parseInt(opt.textContent) === selectedAnswer) {
+                            opt.style.background = 'linear-gradient(to bottom, #ffcdd2, #ffb8c6)';
+                        }
+                    });
+                }
+                
+                // در سطح دشوار، پایان بازی با پاسخ اشتباه
+                if (currentLevel === 'hard') {
+                    setTimeout(() => {
+                        endGame();
+                    }, 2000);
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+            }
+        }
+        
+        function showCorrectAnswer() {
+            // هایلایت کردن پاسخ صحیح
+            document.querySelectorAll('.option').forEach(opt => {
+                if (parseInt(opt.textContent) === correctAnswer) {
+                    opt.classList.add('correct-answer');
+                }
+            });
+        }
+        
+        function updateScore(result) {
+            if (result === 'correct') {
+                if (currentLevel === 'easy') score += 1;
+                else if (currentLevel === 'medium') score += 3;
+                else if (currentLevel === 'hard') score += 5;
+            } else if (result === 'incorrect') {
+                if (currentLevel === 'medium') score = Math.max(0, score - 1);
+                else if (currentLevel === 'hard') score = Math.max(0, score - 3);
+            } else if (result === 'timeout') {
+                if (currentLevel === 'hard') score = Math.max(0, score - 3);
+            }
+            
+            scoreValueElement.textContent = toPersianNumber(score);
+        }
+        
+        function showMessage(text, type) {
+            messageElement.textContent = text;
+            messageElement.classList.remove('hidden', 'success', 'error', 'warning');
+            messageElement.classList.add(type);
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            
+            if (currentQuestion > totalQuestions) {
+                endGame();
+            } else {
+                showQuestion();
+            }
+        }
+        
+        function endGame() {
+            const name = localStorage.getItem('studentName');
+            const finalScore = score;
+            
+            // تولید IP تصادفی (در شرایط واقعی باید از IP واقعی کاربر استفاده شود)
+            const userIP = generateRandomIP();
+            
+            // ذخیره امتیاز در localStorage
+            saveScore(name, finalScore, currentLevel, userIP);
+            
+            // پخش صدای برنده شدن در صورت امتیاز بالا
+            if (finalScore > 15) {
+                winSound.play();
+            }
+            
+            // نمایش پیام پایانی
+            if (finalScore > 0) {
+                showMessage(`بازی به پایان رسید. امتیاز نهایی شما: ${toPersianNumber(finalScore)}`, 'success');
+            } else {
+                showMessage(`بازی به پایان رسید. امتیاز نهایی شما: ${toPersianNumber(finalScore)}. ناامید نشوید، دوباره تلاش کنید!`, 'warning');
+            }
+            
+            // پنهان کردن گزینه‌ها و نمایش دکمه بازگشت
+            optionsContainer.innerHTML = '';
+            nextBtn.classList.add('hidden');
+            endGameBtn.textContent = 'بازگشت به صفحه اصلی';
+            endGameBtn.removeEventListener('click', endGameManually);
+            endGameBtn.addEventListener('click', showMainPage);
+        }
+        
+        function endGameManually() {
+            // پایان دادن دستی به بازی
+            if (confirm('آیا مطمئن هستید که می‌خواهید بازی را به پایان برسانید؟')) {
+                endGame();
+            }
+        }
+        
+        function showLeaderboard() {
+            mainPage.classList.add('hidden');
+            leaderboardPage.classList.remove('hidden');
+            
+            // بارگذاری و نمایش لیست برترین‌ها
+            displayLeaderboard();
+        }
+        
+        function showTeacherPanel() {
+            mainPage.classList.add('hidden');
+            teacherPage.classList.remove('hidden');
+            
+            // مخفی کردن محتوای پنل معلم تا زمانی که رمز وارد شود
+            document.getElementById('teacher-content').classList.add('hidden');
+        }
+        
+        function loginTeacher() {
+            const password = document.getElementById('teacher-password').value;
+            
+            if (password === '1045') {
+                document.getElementById('teacher-content').classList.remove('hidden');
+                displayStudentsList();
+                displayBlockedIPs();
+            } else {
+                alert('رمز عبور اشتباه است!');
+            }
+        }
+        
+        function blockIP() {
+            const ip = document.getElementById('block-ip').value.trim();
+            
+            if (!isValidIP(ip)) {
+                alert('لطفاً یک آدرس IP معتبر وارد کنید');
+                return;
+            }
+            
+            const blockedIPs = JSON.parse(localStorage.getItem('blockedIPs')) || [];
+            
+            if (!blockedIPs.includes(ip)) {
+                blockedIPs.push(ip);
+                localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+                displayBlockedIPs();
+                alert(`IP ${ip} مسدود شد`);
+            } else {
+                alert('این IP قبلاً مسدود شده است');
+            }
+            
+            document.getElementById('block-ip').value = '';
+        }
+        
+        function displayBlockedIPs() {
+            const blockedIPs = JSON.parse(localStorage.getItem('blockedIPs')) || [];
+            const blockedIPsList = document.getElementById('blocked-ips-list');
+            
+            blockedIPsList.innerHTML = '';
+            
+            if (blockedIPs.length === 0) {
+                blockedIPsList.innerHTML = '<li>هیچ IP مسدود شده‌ای وجود ندارد</li>';
+            } else {
+                blockedIPs.forEach(ip => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${ip}</span>
+                        <button class="btn" style="padding: 5px 10px; font-size: 12px; margin-right: 10px;" onclick="unblockIP('${ip}')">آزاد کردن</button>
+                    `;
+                    blockedIPsList.appendChild(li);
+                });
+            }
+        }
+        
+        function unblockIP(ip) {
+            const blockedIPs = JSON.parse(localStorage.getItem('blockedIPs')) || [];
+            const index = blockedIPs.indexOf(ip);
+            
+            if (index > -1) {
+                blockedIPs.splice(index, 1);
+                localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+                displayBlockedIPs();
+                alert(`IP ${ip} آزاد شد`);
+            }
+        }
+        
+        function displayStudentsList() {
+            const scores = JSON.parse(localStorage.getItem('multiplicationScores')) || [];
+            const studentsList = document.getElementById('students-list');
+            
+            // گروه‌بندی امتیازات بر اساس IP
+            const studentStats = {};
+            
+            scores.forEach(score => {
+                if (!studentStats[score.ip]) {
+                    studentStats[score.ip] = {
+                        name: score.name,
+                        ip: score.ip,
+                        attempts: 0,
+                        totalScore: 0,
+                        maxScore: 0,
+                        byLevel: {
+                            easy: { attempts: 0, totalScore: 0, maxScore: 0 },
+                            medium: { attempts: 0, totalScore: 0, maxScore: 0 },
+                            hard: { attempts: 0, totalScore: 0, maxScore: 0 }
+                        }
+                    };
+                }
+                
+                studentStats[score.ip].attempts++;
+                studentStats[score.ip].totalScore += score.score;
+                
+                if (score.score > studentStats[score.ip].maxScore) {
+                    studentStats[score.ip].maxScore = score.score;
+                }
+                
+                // آمار بر اساس سطح
+                if (studentStats[score.ip].byLevel[score.level]) {
+                    studentStats[score.ip].byLevel[score.level].attempts++;
+                    studentStats[score.ip].byLevel[score.level].totalScore += score.score;
+                    
+                    if (score.score > studentStats[score.ip].byLevel[score.level].maxScore) {
+                        studentStats[score.ip].byLevel[score.level].maxScore = score.score;
+                    }
+                }
+            });
+            
+            if (scores.length === 0) {
+                studentsList.innerHTML = '<div class="student-stats">هنوز رکوردی ثبت نشده است!</div>';
+            } else {
+                studentsList.innerHTML = '';
+                
+                Object.values(studentStats).forEach(student => {
+                    const studentDiv = document.createElement('div');
+                    studentDiv.classList.add('student-stats');
+                    
+                    const avgScore = Math.round(student.totalScore / student.attempts);
+                    
+                    let content = `
+                        <h4>${student.name} (IP: ${student.ip})</h4>
+                        <div><span>تعداد کل بازی‌ها:</span> <span>${toPersianNumber(student.attempts)}</span></div>
+                        <div><span>بیشترین امتیاز:</span> <span>${toPersianNumber(student.maxScore)}</span></div>
+                        <div><span>میانگین امتیاز:</span> <span>${toPersianNumber(avgScore)}</span></div>
+                    `;
+                    
+                    // افزودن آمار بر اساس سطح
+                    content += '<div style="margin-top: 10px;"><strong>آمار بر اساس سطح:</strong></div>';
+                    
+                    for (const level in student.byLevel) {
+                        const levelData = student.byLevel[level];
+                        if (levelData.attempts > 0) {
+                            const levelName = level === 'easy' ? 'آسان' : level === 'medium' ? 'متوسط' : 'دشوار';
+                            const levelAvg = Math.round(levelData.totalScore / levelData.attempts);
+                            content += `
+                                <div><span>سطح ${levelName}:</span> <span>${toPersianNumber(levelData.attempts)} بازی | بیشترین: ${toPersianNumber(levelData.maxScore)} | میانگین: ${toPersianNumber(levelAvg)}</span></div>
+                            `;
+                        }
+                    }
+                    
+                    // دکمه‌های اقدام
+                    content += `
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="btn" style="padding: 8px 12px; font-size: 14px;" onclick="deleteStudent('${student.ip}')">حذف کاربر</button>
+                            <button class="btn" style="padding: 8px 12px; font-size: 14px; background: linear-gradient(to right, #ff6c6c, #ff3f3f);" onclick="blockExistingIP('${student.ip}')">مسدود کردن</button>
+                        </div>
+                    `;
+                    
+                    studentDiv.innerHTML = content;
+                    studentsList.appendChild(studentDiv);
+                });
+            }
+        }
+        
+        function deleteStudent(ip) {
+            if (confirm(`آیا از حذف کاربر با IP ${ip} اطمینان دارید؟`)) {
+                const scores = JSON.parse(localStorage.getItem('multiplicationScores')) || [];
+                const newScores = scores.filter(score => score.ip !== ip);
+                localStorage.setItem('multiplicationScores', JSON.stringify(newScores));
+                displayStudentsList();
+                alert('کاربر حذف شد');
+            }
+        }
+        
+        function blockExistingIP(ip) {
+            const blockedIPs = JSON.parse(localStorage.getItem('blockedIPs')) || [];
+            
+            if (!blockedIPs.includes(ip)) {
+                blockedIPs.push(ip);
+                localStorage.setItem('blockedIPs', JSON.stringify(blockedIPs));
+                displayBlockedIPs();
+                alert(`IP ${ip} مسدود شد`);
+            } else {
+                alert('این IP قبلاً مسدود شده است');
+            }
+        }
+        
+        function resetScores() {
+            if (confirm('آیا از حذف تمامی امتیازها اطمینان دارید؟')) {
+                localStorage.removeItem('multiplicationScores');
+                displayStudentsList();
+                displayLeaderboard();
+                alert('تمامی امتیازها حذف شدند.');
+            }
+        }
+        
+        function exportData() {
+            const scores = JSON.parse(localStorage.getItem('multiplicationScores')) || [];
+            
+            if (scores.length === 0) {
+                alert('هیچ داده‌ای برای خروجی وجود ندارد');
+                return;
+            }
+            
+            // ایجاد داده‌های خروجی
+            let csvContent = "نام,IP,سطح,امتیاز,تاریخ\n";
+            
+            scores.forEach(score => {
+                csvContent += `"${score.name}",${score.ip},${score.level},${score.score},${score.date}\n`;
+            });
+            
+            // ایجاد فایل و دانلود
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", "students_data.csv");
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // توابع کمکی
+        function isValidPersianName(name) {
+            const persianRegex = /^[\u0600-\u06FF\s]+$/;
+            return persianRegex.test(name);
+        }
+        
+        function isForbiddenName(name) {
+            const forbiddenNames = ['admin', 'معلم', 'مدیر', 'teacher', 'administrator'];
+            return forbiddenNames.includes(name.toLowerCase());
+        }
+        
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        function toPersianNumber(num) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return num.toString().replace(/\d/g, digit => persianDigits[parseInt(digit)]);
+        }
+        
+        function generateRandomIP() {
+            return `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+        }
+        
+        function isValidIP(ip) {
+            const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+            return ipRegex.test(ip);
+        }
+        
+        function saveScore(name, score, level, ip) {
+            // دریافت امتیازهای ذخیره شده از localStorage
+            const scores = JSON.parse(localStorage.getItem('multiplicationScores')) || [];
+            
+            // اضافه کردن امتیاز جدید
+            scores.push({
+                name: name,
+                score: score,
+                level: level,
+                ip: ip,
+                date: new Date().toLocaleDateString('fa-IR')
+            });
+            
+            // ذخیره مجدد در localStorage
+            localStorage.setItem('multiplicationScores', JSON.stringify(scores));
+            
+            // به روزرسانی تابلوی پیشتازان
+            updateLeaderboard();
+        }
+        
+        function updateLeaderboard() {
+            // این تابع اطمینان حاصل می‌کند که تابلوی پیشتازان به روز است
+            if (!leaderboardPage.classList.contains('hidden')) {
+                displayLeaderboard();
+            }
+        }
+        
+        function displayLeaderboard() {
+            const scores = JSON.parse(localStorage.getItem('multiplicationScores')) || [];
+            const leaderboardList = document.getElementById('leaderboard-list');
+            
+            // گروه‌بندی بر اساس نام و پیدا کردن بهترین امتیاز هر کاربر
+            const userBestScores = {};
+            
+            scores.forEach(score => {
+                if (!userBestScores[score.name] || score.score > userBestScores[score.name].score) {
+                    userBestScores[score.name] = score;
+                }
+            });
+            
+            // تبدیل به آرایه و مرتب کردن بر اساس امتیاز
+            const topScores = Object.values(userBestScores).sort((a, b) => b.score - a.score).slice(0, 3);
+            
+            if (topScores.length === 0) {
+                leaderboardList.innerHTML = '<li>هنوز رکوردی ثبت نشده است!</li>';
+            } else {
+                leaderboardList.innerHTML = '';
+                topScores.forEach((score, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${toPersianNumber(index + 1)}. ${score.name}</span>
+                        <span>${toPersianNumber(score.score)} امتیاز (${score.level})</span>
+                    `;
+                    leaderboardList.appendChild(li);
+                });
+            }
+        }
+        
+        // توابع عمومی برای استفاده در سایر بخش های برنامه
+        window.unblockIP = unblockIP;
+        window.blockExistingIP = blockExistingIP;
+        window.deleteStudent = deleteStudent;
+    </script>
+</body>
+</html>
